@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if c.image %}
+        <img src="{{ c.image.url }}" height="900px;" width="100%">
+    {% else %}
+        <p>No image available</p>
+    {% endif %}
+</div>
+
+<div id="coll" class="container-fluid" style="background-color:#E0115F;">
+    <center>
+        <h3 style="color: black;">{{ c.name }}</h3>
+    </center>
+    <p style="color: black;">{{ c.desc }}</p>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        {% for i in p %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    {% if i.image %}
+                        <img src="{{ i.image.url }}" class="card-img-top" height="300px;" width="100%">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: black;">{{ i.name }}</h5>
+                        <h5 class="card-title" style="color: black;">{{ i.price }}</h5>
+                        <p class="card-text" style="color: black;">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="{% url 'shop:details' i.name %}" class="btn btn-primary" style="background-color: #E0115F; border-color: #E0115F; color: black;">Details</a>
+                    </div>
+                </div>
+            </div>
+            <br><br><br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

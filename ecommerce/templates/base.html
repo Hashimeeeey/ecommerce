@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-image: url('{% static "images/multiplayer-game-3840-x-2160-wallpaper-eey6beng16f9onra.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: 'Zilla Slab', sans-serif;
+            color: white;
+        }
+
+        .navbar {
+            background-color: transparent;
+            padding: 10px;
+        }
+
+        .navbar-brand img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-item {
+            margin-right: 10px;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .nm {
+            position: absolute;
+            top: 20px;
+            color: white;
+            right: 20px;
+        }
+
+        .foot {
+            background-color: #343a40;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            height: 34px;
+        }
+
+        #h66 {
+            font-size: 10px;
+            position: relative;
+            top: -5px;
+            color: white;
+        }
+        #nnmm{
+        position:relative;
+        right:1550px;
+        top:3px;
+        }
+        #icon{
+        position:relative;
+        top:7px;
+        left:500px;
+
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid" id="nb">
+        <a class="navbar-brand" href="{% url 'shop:allcat'%}">
+            <img src="{% static 'images/355114658_566576692298717_6946484188984313951_n.jpg' %}" alt="Logo" width="40px;" height="40px;">
+            MoonStore
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'shop:allcat'%}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'cart:cartview'%}" style="color:white;" id="icon">cart</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            All-Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for i in links %}
+                                <li><a class="dropdown-item" href="{% url 'shop:allprod' i.name %}">{{i.name}}</a></li>
+                            {% endfor %}
+                            <li><a class="dropdown-item" href="#">Others</a></li>
+
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex" method="POST" action="{% url 'search:search'%}">
+                {% csrf_token %}
+                <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                <div>
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </div>
+            </form>
+            <div class="nm">
+                {% if user.is_authenticated %}
+                    <p id="nnmm">Welcome, {{user.username}}!</p>
+                {% else %}
+                    <p>Guest</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+{% block content %}
+{% endblock %}
+<footer>
+    <div class="foot">
+        <center>
+            <p><i id="h66" class="fa-regular fa-copyright">MoonStore pvt Ltd.All Rights reserved</i></p>
+        </center>
+    </div>
+</footer>
+</body>
+</html>

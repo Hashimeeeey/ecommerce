@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .imgg {
+        position: absolute;
+        left: 200px;
+        top: 90px;
+    }
+
+    .desc {
+        position: absolute;
+        left: 650px;
+        width: 1000px;
+        top: 90px;
+        color: black;  /* Set text color to black */
+    }
+
+    .btn-primary {
+        background-color: #d8b4fe;  /* Change button color to violet */
+        border-color: #d8b4fe;  /* Change button border color to violet */
+    }
+</style>
+
+<div class="row">
+    <div class="imgg">
+        <img src="{{ p.image.url }}" height="400px" width="400px">
+    </div>
+    <div class="desc">
+        <h3>{{ p.name }}</h3>
+        <p class="mt-2 lh base" style="font-size: 22px;">{{ p.desc }}</p>
+        <h2 class="mt-2">{{ p.price }}</h2>
+        <h2 class="mt-3" style="font-size: 20px;">Stock left: {{ p.stock }}</h2>
+        <a href="{% url 'cart:cart' n=p.name %}" class="btn btn-primary">ADD TO CART</a>
+    </div>
+</div>
+
+{% endblock %}

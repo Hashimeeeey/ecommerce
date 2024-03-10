@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .table-bordered {
+        border-color: black;
+        border-width: 3px;
+    }
+    .cart-icons a {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .checkout-table {
+        margin-top: 20px;
+        position: absolute;
+        left: 900px;
+    }
+    #ci {
+        position: absolute;
+        left: 50px;
+        width: 40px;
+        top: 130px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <h4 class="text-center">Your cart</h4>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-bordered" id="ci">
+                        <tr>
+                            <th colspan="7">Cart Items</th>
+                        </tr>
+                        {% for item in c %}
+                            <tr>
+                                <td>
+                                    <img src="{{ item.product.image.url }}" height="200px;" width="200px;">
+                                </td>
+                                <td style="font-size: 18px; font-family: Times, serif;">{{ item.product.name }}</td>
+                                <td><h6>Product ID: {{ item.product.id }}</h6></td>
+                                <td><h6>Price: {{ item.product.price }}</h6></td>
+                                <td><h6>Quantity: {{ item.quantity }}*{{ item.product.price }}</h6></td>
+                                <td>Total: {{ item.subtotal }}</td>
+                                <td class="cart-icons">
+                                    {% if item.quantity < item.product.stock %}
+                                    <a href="{% url 'cart:cart' n=item.product.name %}" class="btn btn-info" title="Add one more of this item to your cart"><i class="fa-solid fa-circle-plus"></i></a>
+                                    <a href="{% url 'cart:cart_remove' n=item.product.name %}" class="btn btn-warning" title="remove one  of this item to your cart"><i class="fa-solid fa-circle-minus"></i></a>
+                                    <a href="{% url 'cart:full_remove' n=item.product.name %}" class="btn btn-danger"title="remove this item from your cart"><i class="fa-solid fa-trash"></i></a>
+                        {% else %}
+                                     <a href="{% url 'cart:cart_remove' n=item.product.name %}" class="btn btn-warning" title="remove one  of this item to your cart"><i class="fa-solid fa-circle-minus"></i></a>
+                                    <a href="{% url 'cart:full_remove' n=item.product.name %}" class="btn btn-danger"title="remove this item from your cart"><i class="fa-solid fa-trash"></i></a></td></tr>
+                                    {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <div class="col-6 checkout-table">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th colspan="4">Checkout</th></tr>
+                        <tr><td>TOTAL : {{total}}</td></tr>
+                        <td>
+                            <a href="{% url 'cart:orderform' %}" class="btn btn-primary">Place order</a>
+                            <a href="" class="btn btn-primary">Continue shopping</a></td>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

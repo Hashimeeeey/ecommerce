@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+
+
+<style>
+</style>
+<body>
+<h1>Login Page</h1>
+<div class="logg">
+<form  method="POST" enctype="multipart/form-data">
+   {% csrf_token %}
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    <input type="text" class="form-control" name="u" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="p" id="exampleInputPassword1" placeholder="Enter Your Password">
+  </div>
+  <center>
+  <div class=button2>
+  <button type="submit" class="btn btn-primary">Login</button>
+  </div>
+  </center>
+</form>
+</div>
+</body>
+
+{% endblock %}

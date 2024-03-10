@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="banner">
+    <img src="{% static 'images/purple-gaming-sfiq72g5kksu8khe.jpg'%}" alt="Banner Image" class="img-fluid"
+        style="width: 1999px; max-height: 500px;">
+
+</div>
+<br>
+<div class="container-fluid section" style="background-color: #d8b4fe; text-align: center; padding: 20px;">
+    <h1 class="quote" style="font-family: 'YourFont', sans-serif; color:black;">"Hey Gamers"</h1>
+    <p class="description" style="font-family: 'YourFont', sans-serif; color: black;">
+        Welcome to our enchanting world of hand embroidery, where craftsmanship meets creativity. Our ecommerce website
+        invites you to explore a curated collection of exquisite hand-embroidered treasures that transcend mere fabric
+        and thread. Immerse yourself in the delicate dance of needle and fiber, where every stitch tells a story of
+        passion and precision.
+    </p>
+</div>
+
+<br>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        {% for category in c %}
+        <div class="col-md-4 product-card">
+            <div class="card mx-auto custom-card" style="width: 18rem; margin-bottom: 20px;">
+                <img src="{{ category.image.url }}" class="card-img-top img-fluid" alt="{{ category.name }}">
+                <div class="card-body">
+                    <h5 class="card-title text-center" style="color: black;">{{ category.name }}</h5>
+                    <p class="card-text text-center" style="color: black;">{{ category.desc }}</p>
+                    <a href="{% url 'shop:allprod' category.name %}"
+                        class="btn btn-success d-block mx-auto" style="background-color: violet;">Products</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
